@@ -1,0 +1,12 @@
+models/
+smoke/
+card/
+reports/
+checkpoints/
+gemma-4-abliteration/
+heretic-src/
+venv/
+.venv/
+__pycache__/
+*.tmp
+RESULTS-TEMPLATE.md

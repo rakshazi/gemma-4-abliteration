@@ -1,0 +1,16 @@
+# Install PyTorch first, from the index that matches your accelerator:
+#   NVIDIA: pip install torch torchvision
+#   AMD:    pip install torch torchvision --index-url https://download.pytorch.org/whl/rocm7.2
+# Then: pip install -r requirements.txt
+#
+# These versions reproduce the reference run (heretic 2.1.0, Python 3.14.10,
+# torch 2.15.0, transformers 5.24.0). Newer 2.x releases should work; check the
+# release notes before changing the modifier or scorer behaviour.
+heretic-llm==2.1.0
+transformers==5.24.0
+accelerate==1.16.0
+peft==0.22.0
+datasets==5.2.0
+optuna==5.1.0
+safetensors==0.8.0
+huggingface-hub==1.33.0

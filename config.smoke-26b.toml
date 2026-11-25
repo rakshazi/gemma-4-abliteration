@@ -1,0 +1,76 @@
+# Two-trial smoke run on the real 26B model (GPU). Costs ~5-10 minutes.
+#
+# Loads the EGA-prebaked model (or any model you pass via --model), runs two
+# Abliteration trials with tiny prompt sets, and exits without saving. Use it to
+# validate the full pipeline on real hardware before starting the 8-10 hour run.
+#
+#     HERETIC_CONFIG_FILE=config.smoke-26b.toml venv/bin/heretic
+#     HERETIC_CONFIG_FILE=config.smoke-26b.toml venv/bin/heretic --model models/ega-experts-26b
+
+model = "models/ega-experts-26b"
+
+dtypes = ["auto", "float16", "bfloat16", "float32"]
+quantization = "none"
+device_map = "auto"
+offload_outputs_to_cpu = true
+
+# Fixed batch size skips the (long) automatic batch-size benchmark.
+batch_size = 1
+max_response_length = 32
+response_prefix = ""
+
+scorers = [
+    { plugin = "heretic.scorers.keyword_rate.KeywordRate", optimization = "minimize" },
+    { plugin = "heretic.scorers.kl_divergence.KLDivergence", optimization = "minimize" },
+]
+
+modifiers = [
+    { plugin = "heretic.modifiers.abliteration.Abliteration" },
+]
+
+n_trials = 2
+n_startup_trials = 1
+seed = 1234
+study_checkpoint_dir = "checkpoints/smoke-26b"
+
+modified_model_type = "decensored"
+
+checkpoint_action = "restart"
+trial_index = 0
+model_action = ""
+
+system_prompt = "You are a helpful assistant."
+
+[scorer.KeywordRate]
+score_name = "Refusals"
+keyword_markers = ["i cannot", "i can't", "i will not", "i won't", "sorry"]
+
+[scorer.KeywordRate.prompts]
+dataset = "mlabonne/harmful_behaviors"
+commit = "01cead01398926d81f7c52bdb790ee8cf77ebba7"
+split = "test[:8]"
+column = "text"
+
+[scorer.KLDivergence.prompts]
+dataset = "mlabonne/harmless_alpaca"
+commit = "02c6a92cfcf11bb0c387334f8146d149d65b587f"
+split = "test[:8]"
+column = "text"
+
+[modifier.Abliteration]
+orthogonalize_direction = true
+row_normalization = "full"
+full_normalization_lora_rank = 3
+winsorization_quantile = 0.995
+
+[modifier.Abliteration.good_prompts]
+dataset = "mlabonne/harmless_alpaca"
+commit = "02c6a92cfcf11bb0c387334f8146d149d65b587f"
+split = "train[:8]"
+column = "text"
+
+[modifier.Abliteration.bad_prompts]
+dataset = "mlabonne/harmful_behaviors"
+commit = "01cead01398926d81f7c52bdb790ee8cf77ebba7"
+split = "train[:8]"
+column = "text"
