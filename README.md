@@ -4,7 +4,7 @@ Scripts and configs for a two-stage abliteration of the Gemma 4 26B-A4B mixture-
 
 Full story, details and logs: [rakshazi.me/blog/gemma-4-abliteration](https://rakshazi.me/blog/gemma-4-abliteration/).
 
-HuggingFace: [rakshazi/Dark-Scarlett-v1.0-26B-A4B-Uncensored](https://huggingface.co/rakshazi/Dark-Scarlett-v1.0-26B-A4B-Uncensored)
+HuggingFace: [rakshazi/Dark-Scarlett-v1.0-26B-A4B-Uncensored](https://huggingface.co/rakshazi/Dark-Scarlett-v1.0-26B-A4B-Uncensored), GGUFs: [rakshazi/Dark-Scarlett-v1.0-26B-A4B-Uncensored-GGUF](https://huggingface.co/rakshazi/Dark-Scarlett-v1.0-26B-A4B-Uncensored-GGUF).
 
 This is a personal experiment, shared as-is.
 
