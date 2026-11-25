@@ -30,6 +30,7 @@ The same research found that projecting the refusal direction out of every exper
 | `scripts/eval_models.py` | Refusal rates on up to four datasets, category breakdown, KL divergence against a baseline model, JSON export |
 | `scripts/smoke_test.py` | Builds a tiny Gemma 4 MoE with the real architecture classes, runs prebake and a two-trial heretic study, asserts 12 invariants |
 | `scripts/common.py` | Shared helpers (settings, prompt specs, residual directions, projection kernels, refusal matching) |
+| `scripts/quantization/*` | GGUF quantization scripts, copied from [HF GGUF repo](https://huggingface.co/rakshazi/Dark-Scarlett-v1.0-26B-A4B-Uncensored-GGUF) |
 | `APPROACH.md` | Method write-up, script and config reference, evaluation protocol, publishing checklist |
 | `LICENSE` | Apache 2.0 for this repository's code |
 
